@@ -7,17 +7,19 @@ interface FollowCardProps {
     isFollowing?: boolean
 }
 
-export default function FollowCard(props: FollowCardProps): JSX.Element {
-    const imgSrc = `avatars/${props.userName}.png`
-    const [isFollowing, setIsFollowing] = useState(props.isFollowing??false);
-    
+const AVATAR_BASE_URL = 'avatars';
+const DEFAULT_AVATAR = `${AVATAR_BASE_URL}/default.png`;
+
+export default function FollowCard({name, userName, isFollowing:_isFollowing=false}: FollowCardProps): JSX.Element {
+    const imgSrc = `${AVATAR_BASE_URL}/${userName}.png`
+    const [isFollowing, setIsFollowing] = useState(_isFollowing);
     return (
         <article className="fc-card">
             <header className="fc-header">
-                <img className="fc-img" src={imgSrc} alt="Avatar de usuario" onError={(e) => { e.currentTarget.src = 'avatars/default.png' }}/>
+                <img className="fc-img" src={imgSrc} alt="Avatar de usuario" onError={e => { e.currentTarget.src = DEFAULT_AVATAR }}/>
                 <div className="fc-section">
-                    <strong>{props.name}</strong>
-                    <span>@{props.userName}</span>
+                    <strong>{name}</strong>
+                    <span>@{userName}</span>
                 </div>
             </header>
             <aside className="fc-aside">
