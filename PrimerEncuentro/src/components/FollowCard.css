@@ -1,0 +1,60 @@
+.fc-card {
+    display: flex;
+    user-select: none;
+    background-color: black;
+    min-height: 64px;
+}
+
+.fc-header {
+    display: flex;
+    align-items: center;
+    width: 12rem;
+    gap: 1rem;
+}
+
+.fc-section {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.fc-section span {
+    color: rgba(255, 255, 255, 0.795)
+}
+
+.fc-aside {
+    display: flex;
+    place-items: center;
+    place-content: center;
+    margin-inline-end: 8px;
+    margin-inline-start: 8px;
+}
+
+.fc-btn{
+    min-width: 5rem;
+    border: none;
+    border-radius: 16px;
+    padding: 4px 0 4px 0;
+    color: black;
+    background-color: white;
+    font-weight: bold;
+}
+
+.fc-btn:hover {
+    background-color: rgba(235, 235, 235, 0.952);
+}
+
+.fc-btn[data-isfollowing=true] {
+    color: white;
+    background-color: rgb(36, 113, 255);
+}
+.fc-btn[data-isfollowing=true]:hover {
+    background-color: rgb(0, 78, 223);
+}
+
+.fc-img {
+    inline-size: 48px;
+    block-size: 48px;
+    border-radius: 50%;
+    margin-inline-start: 8px;
+}
