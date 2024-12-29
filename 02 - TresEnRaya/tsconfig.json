@@ -1,0 +1,24 @@
+{
+  "files": [],
+  "compilerOptions": {
+    "strict": true,                  // Activa todas las comprobaciones estrictas
+    "noImplicitAny": true,           // Prohíbe el uso implícito del tipo `any`
+    "strictNullChecks": true,        // Requiere manejar valores nulos y undefined
+    "strictFunctionTypes": true,     // Verifica los tipos de funciones estrictamente
+    "strictBindCallApply": true,     // Verifica métodos como bind, call y apply
+    "noImplicitThis": true,          // Evita `this` implícito de tipo `any`
+    "alwaysStrict": true,            // Habilita `use strict` en todos los archivos
+    "noImplicitReturns": true,       // Prohíbe funciones sin retorno explícito
+    "noFallthroughCasesInSwitch": true, // Evita omisiones de `break` en switch
+    "noUncheckedIndexedAccess": true, // Obliga a verificar índices en arrays/mapas
+    "useUnknownInCatchVariables": true, // Hace que las variables `catch` sean `unknown`
+    "exactOptionalPropertyTypes": true, // Distingue entre propiedades opcionales y `undefined`
+    "esModuleInterop": true,         // Interoperabilidad con módulos ES
+    "skipLibCheck": true,            // Omite chequeo de tipos en las dependencias
+    "forceConsistentCasingInFileNames": true // Enforce consistent casing in imports
+  },
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
