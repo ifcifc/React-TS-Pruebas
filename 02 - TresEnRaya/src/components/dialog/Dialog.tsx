@@ -9,13 +9,13 @@ interface DialogProps {
 }
 
 export default function Dialog({isOpen, message, setOpenModal, resetGame}:DialogProps) : JSX.Element | null {
-    if(!isOpen)return null;
-
     const dialog = React.createRef<HTMLDialogElement>();
 
     useEffect(() => { 
         dialog.current?.showModal();
     },[]);
+
+    if(!isOpen)return null;
 
     return(
         <dialog className="dg-modal" ref={dialog}>

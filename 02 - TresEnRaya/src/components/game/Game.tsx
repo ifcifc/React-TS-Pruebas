@@ -45,12 +45,12 @@ export default function Game(): JSX.Element {
         window.sessionStorage.setItem("cells", JSON.stringify(cells));
         window.sessionStorage.setItem("score", JSON.stringify(score ?? Array(2).fill(0)));
         window.sessionStorage.setItem("currentPlayer", currentPlayer.toString());
-    }, [cells]);
+    }, [cells, currentPlayer, score]);
 
     //Comprueba si hubo un ganador,un empate o si siguie el juego
     //en caso de que haya un ganador o un empate, muestra un mensaje
     useEffect(() => {
-        let status: GameStatus = checkWin(cells);
+        const status: GameStatus = checkWin(cells);
         const newScore = [...score];
 
         switch (status) {

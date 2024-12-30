@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './FollowCard.css'
-import { IChildren } from '../../common/IChildren';
 
 const AVATAR_BASE_URL = 'avatars';
 const DEFAULT_AVATAR = `${AVATAR_BASE_URL}/default.png`;

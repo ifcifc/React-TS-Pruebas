@@ -16,12 +16,12 @@ export default function checkWin(board: number[]):GameStatus {
 
     for (const condition of winConditions) {
         //Suma las celdas del juegador 1
-        let sumPlayer1:number = board
+        const sumPlayer1:number = board
             .filter((_, index) => condition.includes(index) && board[index] === 1)
             .reduce((acc, cell) => acc + cell, 0);
         
         //Suma las celdas del juegador 2
-        let sumPlayer2:number = board
+        const sumPlayer2:number = board
             .filter((_, index) => condition.includes(index) && board[index] === 2)
             .reduce((acc, cell) => acc + cell, 0);
         
