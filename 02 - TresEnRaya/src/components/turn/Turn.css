@@ -1,0 +1,21 @@
+.tr-turn{
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+}
+
+.tr-cell{
+    width: 48px;
+    height: 48px;
+    border: 1px solid white;
+    font-size: 2em;
+    cursor: pointer;
+    text-align: center;
+    display: grid;
+    place-items: center;
+}
+
+.tr-cell[data-is_turn=true]{
+    background-color: rgb(36, 113, 255);
+}

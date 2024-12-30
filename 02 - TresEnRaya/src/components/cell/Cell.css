@@ -1,0 +1,10 @@
+.cl-cell{
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+    border: 1px solid whitesmoke;
+    text-align: center;
+    display: grid;
+    place-items: center;
+    font-size: 2rem;
+}

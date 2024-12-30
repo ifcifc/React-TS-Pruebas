@@ -1,0 +1,22 @@
+.gm-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.gm-game {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gm-game > hr{
+    width: 100%;
+    margin: 16px 0 16px 0;
+}
+
+.gm-game > h1{
+    margin: 0;
+}

@@ -1,0 +1,25 @@
+.sc-score-board{
+    padding: 8px;
+    border: 1px solid #FFFFFF;
+    min-width: 8rem;
+    text-align: center;
+}
+
+.sc-score-board hr{width: 100%;}
+
+.sc-score-board strong{font-size: 1.5rem;}
+
+.sc-score-board-row{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+}
+
+.sc-score-board-row > p {
+    min-width: 5rem;
+}
+
+.sc-reset-button{
+    width: 100%;
+}
