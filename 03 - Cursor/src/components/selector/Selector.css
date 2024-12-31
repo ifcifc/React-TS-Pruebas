@@ -1,0 +1,25 @@
+.cr-cursor-selector{
+    --cr-cursor-selector-size: 48px;
+    display: grid;
+    place-items: center;
+    place-content: center;
+    border: 1px solid white;
+    background-color: #00000000;
+    width: var(--cr-cursor-selector-size);
+    height: var(--cr-cursor-selector-size);
+    padding: 8px;
+    box-sizing: content-box;
+}
+
+.cr-cursor-selector img{
+    width: var(--cr-cursor-selector-size);
+    height: var(--cr-cursor-selector-size);
+}
+
+.cr-cursor-selector:hover{
+    background-color: #FFFFFF20;
+}
+
+.cr-cursor-selector:active{
+    background-color: #FFFFFFF0;
+}

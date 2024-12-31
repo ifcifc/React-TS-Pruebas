@@ -1,0 +1,11 @@
+.sl-selector-list{
+    position: fixed;
+    right: 0;
+    top: 0;
+    float: right;
+}
+.sl-selector-list > ul{
+    list-style-type: none;
+    max-height: 90vh;
+    overflow-y: auto;
+}

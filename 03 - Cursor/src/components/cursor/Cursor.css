@@ -1,7 +1,25 @@
-body{
-    cursor: url("cursor.svg"), auto;
+.cr-cursor, .cr-cursor > img{
+  --cr-cursor-size: 32px;
+  width: var(--cr-cursor-size);
+  height: var(--cr-cursor-size);
 }
-
 .cr-cursor{
-
+    /*background-repeat: no-repeat;  
+    background-size: cover;
+    background-position: center;*/
+    position: absolute;
+    z-index: 10000;
+    animation: respirar 2s ease-in-out infinite;
 }
+
+@keyframes respirar {
+    0% {
+      transform: scaleY(1);
+    }
+    50% {
+      transform: scaleY(1.15);
+    }
+    100% {
+      transform: scaleY(1);
+    }
+  }
