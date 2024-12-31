@@ -1,0 +1,26 @@
+{
+  "name": "creacion-del-projecto-desde-0",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "standard": "^17.1.2",
+    "vite": "^6.0.5"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "4.3.4",
+    "@vitejs/plugin-react-swc": "^3.7.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "./node_modules/standard/eslintrc.json"
+    ]
+  }
+}
