@@ -19,6 +19,7 @@ export default function Progress({updateFact, timeout=10}:ProgressProp): JSX.Ele
         }, 1000/100*timeout);
 
         return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
