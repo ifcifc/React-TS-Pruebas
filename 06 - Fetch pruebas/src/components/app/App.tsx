@@ -14,7 +14,10 @@ function getCatUrl(says?: string, width: number = 512, height: number = 512): st
 
 function fetchCatFact(setFact: (fact: string) => void, setCatUrl: (url: string) => void) {
   fetch(ENDPOINT_CAT_FACT)
-    .then(response => response.json())
+    .then(response => {
+      if(!response.ok)throw new Error('Network response was not ok');
+      return response.json();
+    })
     .then(data => {
       setFact(data.fact);
       setCatUrl(getCatUrl(data.fact.split(" ", 5).join("%20")));
