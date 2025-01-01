@@ -1,0 +1,27 @@
+
+.app-container{
+  text-align: center;
+  max-width: 800px;
+}
+
+.app-container h1{
+  margin: 0.25rem;
+}
+
+.app-container section{
+  display: flex;
+  justify-content: space-between;
+  text-wrap: wrap;
+  text-align: justify;
+  gap: 1rem;
+}
+
+
+.app-container img{
+  max-width: 512px;
+  max-width: 512px;
+}
+
+.app-container Progress{
+  width: 100%;
+}
