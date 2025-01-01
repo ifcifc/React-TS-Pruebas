@@ -20,7 +20,7 @@ function fetchCatFact(setFact: (fact: string) => void, setCatUrl: (url: string) 
     })
     .then(data => {
       setFact(data.fact);
-      setCatUrl(getCatUrl(data.fact.split(" ", 5).join("%20")));
+      setCatUrl(getCatUrl(data.fact.split(' ', 5).join('%20')));
     })
     .catch(error => {
       console.error('Error:', error);
@@ -32,7 +32,7 @@ function fetchCatFact(setFact: (fact: string) => void, setCatUrl: (url: string) 
 }
 
 export default function App(): JSX.Element {
-  const [fact, setFact] = useState("Lorem input dolor sit amet");
+  const [fact, setFact] = useState('Lorem input dolor sit amet');
   const [catUrl, setCatUrl] = useState(ENDPOINT_CAT_RANDOM_IMAGE_DEFAULT);
 
   const updateFact = () => fetchCatFact(setFact, setCatUrl);
@@ -48,7 +48,7 @@ export default function App(): JSX.Element {
       <h1>Cat Fact</h1>
       <section>
         <p>{fact}</p>
-        <img src={catUrl} alt="Random cat" onError={onImgError} />
+        <img src={catUrl} alt='Random cat' onError={onImgError} />
       </section>
       <Progress updateFact={updateFact} timeout={30}/>
     </main>
