@@ -1,20 +1,25 @@
 # Creacion de un proyecto react con JS manualmente 
 
 ### Comandos:
-- npm create vite@latest
-- npm install
+```sh
+npm create vite@latest
+npm install
+```
 
 ### Dependencias
-> React, React-DOM y @vitejs/plugin-react
->- El -E indica a npm que instale la version especificada en el package.json 
+__React, React-DOM y @vitejs/plugin-react__
 
-- npm install react react-dom @vitejs/plugin-react -E
-> Usando el compilador (Speedy Web Compiler) SWC (Recomendado)
-- npm install react react-dom @vitejs/plugin-react-swc -E
-
+__El -E indica a npm que instale la version especificada en el package.json__
+```sh
+npm install react react-dom @vitejs/plugin-react -E
+```
+__Usando el compilador (Speedy Web Compiler) SWC (Recomendado)__
+```sh
+npm install react react-dom @vitejs/plugin-react-swc -E
+```
 ### Crear archivo de configuracion de vite
 > vite.config.js
-```
+```js
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 //import react from '@vitejs/plugin-react-swc'
@@ -25,8 +30,9 @@ export default defineConfig({
 ```
 
 ### Configurar punto de entrada
-> main.js cambiarlo a main.jsx y en index.html cambiar el punto de entrada al jsx.
-```
+__main.js cambiarlo a main.jsx y en index.html cambiar el punto de entrada al jsx.__
+> main.jsx
+```js
 import React from 'react'
 import { createRoot } from "react-dom/client"
 import { StrictMode } from 'react'
@@ -44,9 +50,11 @@ root.render(
 ```
 
 ### Añadir ESLint
-- npm install standard --save-dev
->package.json
+```sh
+npm install standard --save-dev
 ```
+>package.json
+```json
 "eslintConfig": {
   "extends": [
     "./node_modules/standard/eslintrc.json"
