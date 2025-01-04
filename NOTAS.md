@@ -52,3 +52,23 @@ function handleSubmit(event){
 ```html
 <form onSubmit={handleSubmit}>
 ```
+
+## Carpeta Mooks
+__Para contener datos de prueba, por ejemplo json con la respuesta de una api para evitar llamar a la api continuamente en el desarrollo o para mantener la consistencia en los datos mientras se desarrolla la app.__
+
+## CSS
+### Grid
+__Sirve para poner los elementos en forma de rejilla__
+```css
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+```
+* __grid-template-columns__: indica la forma en que se dispondra la rejilla.
+* __repeat__: indica que el patron se va a repetir.
+* __auto-fit__:indica como se ajustaran las filas y columnas al espacio disponible.
+* __minmax(200px, 1fr)__: indica que tendra un tamaño de 200px y que podra crecer como maximo a 1fr.
+
+### Unidad fr
+__La unidad fr reprecenta una fraccion del tamaño__
+* Solo se puede usar en el Grid.
+* Si un elemento mide 100px un `1fr=100px`, `1fr 1fr = 50px 50px`, `1fr 3fr = 25px 75px`.  
