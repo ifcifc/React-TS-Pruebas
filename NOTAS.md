@@ -11,7 +11,7 @@ __Los [Hooks](https://es.react.dev/reference/react/hooks) son metodos para manej
 ### useEffect
 __Hook que llama a un metodo cuando uno o mas de los valores observados cambian__
 ```js
-useEffect([metodo], [[propiedades]])
+useEffect([metodo], [[dependencies]])
 ```
 * Si no recibe como argumento las propiedades, llamara al metodo cada vez que se renderize la pagina.
 * Si recibe un array vacio [] solo llamara al metodo cuando el componente se monte por primera vez.
@@ -22,8 +22,8 @@ useEffect([metodo], [[propiedades]])
 ### useState
 __Hook que sirve para crear "variables" persistentes dentro del componente__
 ```js
-[var, set] = useState([valor_inicial])
-[var, set] = useState([()=>{}])
+[value, set] = useState([valor_inicial])
+[value, set] = useState([()=>{}])
 ```
 * Solo se puede alterar la variable a travez del metodo devuelto por el useState.
 * Cuando se quiera modificar el valor, se debe de crear una compia de la variable, modificarla y volversela a pasar al metodo set.
@@ -36,10 +36,29 @@ __Hook que sirve para crear "variables" persistentes dentro del componente__
 ### useRef
 __Hook que crea una variable persistente__
 ```js
-var = useRef([valor_inicial])
+value = useRef([valor_inicial])
 ```
 * A diferencia del useState el useRef crea una referencia persistente en el componente, esta referencia si se modifica, react no volvera a renderizar el componente.
 * Se le puede pasar la referencia a un componente usando el tag ref. `<Algo ref={referecia}>`
+
+### useMemo
+__Hook que permite almacenar entre renderizados el resultado de una operacion__
+```js
+value = useMemo([metodo], [[dependencies]])
+```
+* Llama al metodo cuando una de las dependencias cambia y actualiza el valor devuelto.
+* Util para almacenar resultados de filtros.
+* Actua como una especie de cache almacenando el resultado entre renderizados sin tener que volver a realizar las operaciones continuamente.
+* Solamente para valores.
+
+### useCallback
+__Hook su funcion es similar al useMemo pero con funciones en lugar de valores__
+```js
+callback = useCallback([metodo], [[dependencies]])
+```
+* Funciona de la misma manera que el useMemo.
+* Cuando una dependencia cambia actualizara el metodo.
+* Solamente para funciones.
 
 ## Formularios
 __El metodo onSubmit del formulario se puede acceder a los campos del formulario sin usar `useRef`__
