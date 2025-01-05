@@ -1,0 +1,42 @@
+.cf-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.cf-container button, .cf-container #filter, .cf-container fieldset{
+    width: 100%;
+    box-sizing: border-box; 
+}
+
+.cf-container fieldset{
+    padding: 8px;
+    display: flex;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.cf-container ul {
+    list-style-type:none;
+    padding: 0;
+    max-height: 400px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.cf-container li{
+    margin: 8px 0 8px 0;
+}
+
+.cf-container li:nth-child(odd) {
+    background-color: #0e0e0e;
+}
+
+.cf-container li:nth-child(even) {
+    background-color: #2b2b2b;
+}
