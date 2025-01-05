@@ -75,6 +75,19 @@ function handleSubmit(event){
 ## Carpeta Mooks
 __Para contener datos de prueba, por ejemplo json con la respuesta de una api para evitar llamar a la api continuamente en el desarrollo o para mantener la consistencia en los datos mientras se desarrolla la app.__
 
+## Playwright
+__Para realizar pruebas de validacion__
+> Instalacion
+```sh
+npm init playwright@latest
+npx playwright install-deps
+```
+> Ejecutar los test
+```sh
+npx playwright test
+```
+
+
 ## CSS
 ### Grid
 __Sirve para poner los elementos en forma de rejilla__
@@ -91,3 +104,4 @@ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 __La unidad fr reprecenta una fraccion del tamaño__
 * Solo se puede usar en el Grid.
 * Si un elemento mide 100px un `1fr=100px`, `1fr 1fr = 50px 50px`, `1fr 3fr = 25px 75px`.  
+

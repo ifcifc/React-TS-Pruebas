@@ -1,0 +1,9 @@
+.ts-container{
+    text-align: center;
+    font-weight: bold;
+    user-select: none;
+}
+
+.ts-container:hover{
+    filter: invert(1);
+}
