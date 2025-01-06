@@ -1,0 +1,13 @@
+.ctx-set{
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    float: right;
+    background-color:rgb(0, 140, 255);
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 8px;
+    user-select: none;
+    cursor: pointer;
+}
+

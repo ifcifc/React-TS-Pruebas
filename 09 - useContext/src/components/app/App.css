@@ -1,0 +1,13 @@
+#root{
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+}
+
+#root h1{
+    animation: example 5s infinite ease-in-out;
+}
+
+@keyframes example {
+    50% {filter: invert(1);transform: rotate3d(0,1,0, 1turn);}
+}
