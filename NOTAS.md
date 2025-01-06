@@ -60,6 +60,36 @@ callback = useCallback([metodo], [[dependencies]])
 * Cuando una dependencia cambia actualizara el metodo.
 * Solamente para funciones.
 
+### useContext
+__Hook que permite pasar datos a travez de los distintos componentes sin la necesidad de pasarlo a travez de los props__
+> ContextProvider.jsx
+```js
+export const Context = createContext("");
+export const ContextProvider = ({children}:IChildren) => {
+    const [data, setData] = useState("data in context");
+    return (
+        <Context.Provider value={data}>
+            {children}
+        </Context.Provider>
+    );
+}
+```
+> Main.jsx
+```html
+  <ContextProvider>
+    <App />
+  </ContextProvider>
+```
+> App.jsx
+```js
+export function App() {
+  const value = useContext(Context); 
+  return (
+    <h1>{value}</h1>
+  )
+}
+```
+
 ## Formularios
 __El metodo onSubmit del formulario se puede acceder a los campos del formulario sin usar `useRef`__
 ```js
