@@ -1,0 +1,46 @@
+:root{
+    --mv-widht: 175px;
+    --mv-heigth: calc(var(--mv-widht)/(300/450));
+}
+
+.mv-container{
+    width: var(--mv-widht);
+    min-height: var(--mv-heigth);
+    display: flex;
+    flex-direction: column;
+    box-sizing:content-box;
+    position: relative;
+}
+
+.mv-container:hover{
+    filter: brightness(120%);
+    /*transform: scale(110%);*/
+}
+
+.mv-container img {
+    width: 100%;
+    height: 100%;
+}
+
+.mv-info{
+    background-color: black;
+    padding: 8px;
+    max-height: 2rem;
+    font-size: small;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mv-year{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: #2196f3;
+  color: white;
+  font-weight: bold;
+  padding: 4px;
+  border-bottom-right-radius: 8px;
+}

@@ -1,0 +1,15 @@
+.fl-container{
+    width: 100%;
+    display: flex;
+    gap:1rem;
+    padding: 1rem;
+}
+
+.fl-container input{
+    width: 100%;
+}
+
+.fl-container label{
+    white-space: nowrap;
+    display: flex;
+}
