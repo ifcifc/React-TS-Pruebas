@@ -7,37 +7,41 @@ interface IFilterProp{
     setMovies: (movies:IMovie[])=>void;
 }
 
+interface IFilter{
+    textFilter:string,
+    yearFilter:string
+}
+
+interface ISorted{
+    nameSorted:boolean,
+    yearSorted:boolean
+}
+
 export default function Filter({setMovies}:IFilterProp){
     const [movieList, setMovieList] = useState([] as IMovie[]);
-    const [textFiltered, setTextFiltered] = useState('');
-    const [yearFiltered, setYearFiltered] = useState('0');
-    const [isSorted, setIsSorted] = useState(false);
-    const [isYearSorted, setIsYearSorted] = useState(true);
+    const [filter, setFilter] = useState({textFilter:'', yearFilter:'0'} as IFilter);
+    const [sorted, setSorted] = useState({nameSorted:false, yearSorted:true} as ISorted);
 
     //Peliculas ordenadas
     const sortMovies = useMemo<IMovie[]>(()=>{
-        const sortedMovies:IMovie[] = isSorted ? [...movieList].sort((a, b) => a.title.localeCompare(b.title)) : movieList;
-        return isYearSorted ? [...sortedMovies].sort((a, b) => a.year.localeCompare(b.year)) : sortedMovies;
-    },[movieList, isSorted, isYearSorted]);
+        const sortedMovies:IMovie[] = sorted.nameSorted ? [...movieList].sort((a, b) => a.title.localeCompare(b.title)) : movieList;
+        return sorted.yearSorted ? [...sortedMovies].sort((a, b) => a.year.localeCompare(b.year)) : sortedMovies;
+    },[movieList, sorted]);
  
-    //Evento cuando el filtro de texto cambia
-    const handleTextChange = (event:React.ChangeEvent<HTMLInputElement>)=>{
-        setTextFiltered(event.target.value);
+    //Evento cuando los filtros cambian
+    const handleChange = (event:React.ChangeEvent<HTMLSelectElement|HTMLInputElement>)=>{
+        setFilter({
+            ...filter,
+            [event.target.name]:event.target.value
+        });
     };
     
-    //Evento para el checkbox dek ordenamiento por nombre 
+    //Evento para los checkbox de ordenamiento
     const handleSortChange = (event:React.ChangeEvent<HTMLInputElement>)=>{
-        setIsSorted(event.target.checked);
-    };
-
-    //Evento cuando el filtro del año cambia
-    const handleYearChange = (event:React.ChangeEvent<HTMLSelectElement>)=>{
-        setYearFiltered(event.target.value);
-    };
-    
-    //Evento para el checkbox dek ordenamiento por año
-    const handleYearSortChange = (event:React.ChangeEvent<HTMLInputElement>)=>{
-        setIsYearSorted(event.target.checked);
+        setSorted({
+            ...sorted,
+            [event.target.name]:event.target.checked
+        });
     };
     
     //Debounce para evitar llamar continuamente a la api
@@ -45,14 +49,14 @@ export default function Filter({setMovies}:IFilterProp){
         try{
             MovieService
                 .new('87a0a105')
-                .searchMovies(textFiltered, (yearFiltered!=='0')?yearFiltered:undefined)
+                .searchMovies(filter.textFilter, (filter.yearFilter!=='0')?filter.yearFilter:undefined)
                 .then(result=>setMovieList(result??[]))
                 .catch(()=>setMovieList([]));
         }catch(error){
             setMovieList([]);
             console.error(error);
         }
-    },500,[yearFiltered, textFiltered]);
+    },500,[filter]);
 
     //Si la lista de peliculas cambia actualiza el state externo
     useEffect(()=>{
@@ -61,13 +65,13 @@ export default function Filter({setMovies}:IFilterProp){
 
     return(
         <div className='fl-container'>
-            <input type='text' value={textFiltered} onChange={handleTextChange}/>
-            <select onChange={handleYearChange}>
+            <input type='text' name='textFilter' value={filter.textFilter} onChange={handleChange}/>
+            <select onChange={handleChange} name='yearFilter'>
                 <option value='0'>-</option>
-                {Array(75).fill(0).map((v,i)=>(<option key={`${2025-i}`} value={`${2025-i}`}>{2025-i}</option>))}
+                {Array(75).fill(0).map((_,i)=>(<option key={`${2025-i}`} value={`${2025-i}`}>{2025-i}</option>))}
             </select>
-            <label><input type='checkbox' onChange={handleSortChange} checked={isSorted}/>Ordenar</label>
-            <label><input type='checkbox' onChange={handleYearSortChange} checked={isYearSorted}/>Ordenar por año</label>
+            <label><input type='checkbox' name='nameSorted' onChange={handleSortChange} checked={sorted.nameSorted}/>Ordenar</label>
+            <label><input type='checkbox' name='yearSorted' onChange={handleSortChange} checked={sorted.yearSorted}/>Ordenar por año</label>
         </div>
     );
 }
