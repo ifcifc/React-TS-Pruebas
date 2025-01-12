@@ -23,7 +23,8 @@ body {
 }
 
 #root{
-  height:fit-content;
+  /*height:fit-content;*/
+  height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;

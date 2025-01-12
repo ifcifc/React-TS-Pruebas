@@ -1,0 +1,12 @@
+.sgs-input{
+    width: 100%;   
+}
+.sgs-container{
+    max-width: 640px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+

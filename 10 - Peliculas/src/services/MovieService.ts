@@ -51,6 +51,17 @@ export default class MovieService{
         } as IMovie));
     }
 
+    public async isValidApiKey():Promise<boolean>{
+        const url = this.getBaseUrl();
+        const response = await fetch(url);
+        
+        if(!response.ok)return false;
+
+        const json = await response.json();
+
+        return !(json.Error?.includes('Invalid') ?? true);
+    }
+
     private getBaseUrl():string{
         return `${this.endpoint}${this.ApiKey}`;
     }

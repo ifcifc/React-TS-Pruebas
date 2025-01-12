@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import MovieService, { IMovie } from '../../services/MovieService';
 import './Filter.css'
 import { useDebounce } from '../../hooks/useDebounce';
+import { Context } from '../context/Context';
 
 interface IFilterProp{
     setMovies: (movies:IMovie[])=>void;
@@ -18,6 +19,8 @@ interface ISorted{
 }
 
 export default function Filter({setMovies}:IFilterProp){
+    const context = useContext(Context);
+
     const [movieList, setMovieList] = useState([] as IMovie[]);
     const [filter, setFilter] = useState({textFilter:'', yearFilter:'0'} as IFilter);
     const [sorted, setSorted] = useState({nameSorted:false, yearSorted:true} as ISorted);
@@ -25,10 +28,10 @@ export default function Filter({setMovies}:IFilterProp){
     //Peliculas ordenadas
     const sortMovies = useMemo<IMovie[]>(()=>{
         const sortedMovies:IMovie[] = sorted.nameSorted ? [...movieList].sort((a, b) => a.title.localeCompare(b.title)) : movieList;
-        return sorted.yearSorted ? [...sortedMovies].sort((a, b) => a.year.localeCompare(b.year)) : sortedMovies;
+        return sorted.yearSorted ? sortedMovies.sort((a, b) => a.year.localeCompare(b.year)) : sortedMovies;
     },[movieList, sorted]);
  
-    //Evento cuando los filtros cambian
+    //Evento para cuando los filtros cambian
     const handleChange = (event:React.ChangeEvent<HTMLSelectElement|HTMLInputElement>)=>{
         setFilter({
             ...filter,
@@ -48,7 +51,7 @@ export default function Filter({setMovies}:IFilterProp){
     useDebounce(()=>{
         try{
             MovieService
-                .new('87a0a105')
+                .new(context.apiKey)
                 .searchMovies(filter.textFilter, (filter.yearFilter!=='0')?filter.yearFilter:undefined)
                 .then(result=>setMovieList(result??[]))
                 .catch(()=>setMovieList([]));
@@ -65,7 +68,7 @@ export default function Filter({setMovies}:IFilterProp){
 
     return(
         <div className='fl-container'>
-            <input type='text' name='textFilter' value={filter.textFilter} onChange={handleChange}/>
+            <input type='text' name='textFilter' value={filter.textFilter} onChange={handleChange} placeholder='Spider-Man, Inception, Matrix, ...'/>
             <select onChange={handleChange} name='yearFilter'>
                 <option value='0'>-</option>
                 {Array(75).fill(0).map((_,i)=>(<option key={`${2025-i}`} value={`${2025-i}`}>{2025-i}</option>))}
