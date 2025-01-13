@@ -1,8 +1,14 @@
-.fl-container{
+.fl-container, .fl-container fieldset{
     width: 100%;
     display: flex;
-    gap:1rem;
+    flex-direction: column;
     padding: 1rem;
+}
+.fl-container fieldset{
+    gap:1rem;
+    flex-direction: row;
+    padding: 8px;
+    border: none;
 }
 
 .fl-container input{
@@ -12,4 +18,12 @@
 .fl-container label{
     white-space: nowrap;
     display: flex;
+    
+}
+
+
+.fl-error{
+    justify-content: center;
+    color: #EF4444;
+    font-weight: bold;
 }

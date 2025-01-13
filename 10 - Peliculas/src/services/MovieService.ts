@@ -6,6 +6,12 @@ export interface IMovie{
     id?:string
 }
 
+export interface IPageMovie{
+    movies:IMovie[],
+    currentPage:number,
+    lastPage:number
+}
+
 interface IOmdbResult{
     Title: string,
     Year: string,
@@ -33,7 +39,6 @@ export default class MovieService{
         if(!this.localResponse){
             const url = this.getBaseUrl();
             const response = await fetch(`${url}&s=${title}&type=movie${year?'&y='+year:''}`);
-
             if(!response.ok)return;
 
             search = await response.json();
@@ -43,6 +48,8 @@ export default class MovieService{
         
         if(!search.Response)return;
         
+
+
         return (search.Search ?? []).map((movie:IOmdbResult) =>({
             title:movie.Title, 
             imageUrl:movie.Poster, 
