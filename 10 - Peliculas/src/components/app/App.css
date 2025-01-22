@@ -1,19 +1,13 @@
 :root {
-    --movie-gap: 16px;
-    --movie-column: 5;
-}
 
-main {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(var(--mv-widht), 1fr));
-    max-width: calc((var(--mv-widht))*var(--movie-column) + var(--movie-gap)*var(--movie-column));
-    gap: var(--movie-gap);
-    text-align: center;
+
+    --container-max-width: calc((var(--mv-widht))*var(--movie-column) + var(--movie-gap)*var(--movie-column));
 }
 
 #root {
-    min-width: calc((var(--mv-widht))*var(--movie-column) + var(--movie-gap)*var(--movie-column));
+    min-width: var(--container-max-width);
 }
+
 
 h1 {
     margin: 1rem 0 0 0;

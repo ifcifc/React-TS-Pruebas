@@ -1,22 +1,14 @@
-import { useContext, useEffect, useState } from 'react';
-import MovieService, { IMovie } from '../../services/MovieService';
+import { useContext, useEffect } from 'react';
 import './Filter.css'
-import { useDebounce } from '../../hooks/useDebounce';
-import { Context } from '../context/Context';
+import { useSortMovies } from '../../hooks/useSortMovies';
+import { useSearchMovies } from '../../hooks/useSearchMovies';
+import { useFilter } from '../../hooks/useFilter';
+import { useSorted } from '../../hooks/useSorted';
+import { SettingsContext } from '../settingsContext/SettingsContext';
+import { PagesContext } from '../pagesContext/PagesContext';
 
 interface IFilterProp {
-    setMovies: (movies: IMovie[]) => void;
-    setIsSearching: (isSearching: boolean) => void;
-}
-
-interface IFilter {
-    textFilter: string,
-    yearFilter: string
-}
-
-interface ISorted {
-    nameSorted: boolean,
-    yearSorted: boolean
+    setIsSearching: (isSearching: boolean) => void
 }
 
 //Genera un array con los años desde el ultimo año al especificado
@@ -27,79 +19,29 @@ function generateYears(fromYear: number = 1960): number[] {
         .reverse();
 }
 
+
 function validateFilter(filter: string): boolean {
     const ft = filter.trim();
     if (ft.length < 4 || ft.length > 40) return false;
     return true;
 }
 
-export default function Filter({ setMovies, setIsSearching }: IFilterProp) {
-    const context = useContext(Context);
+export default function Filter({ setIsSearching }: IFilterProp) {
+    const settingsContext = useContext(SettingsContext);
+    const pagesContext = useContext(PagesContext);
 
-    const [movieList, setMovieList] = useState([] as IMovie[]);
-    const [filter, setFilter] = useState({ textFilter: '', yearFilter: '0' } as IFilter);
-    const [sorted, setSorted] = useState({ nameSorted: false, yearSorted: true } as ISorted);
-    const [error, setError] = useState<string|undefined>(undefined);
-
-    //Evento para cuando los filtros cambian
-    const handleChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
-        setFilter({
-            ...filter,
-            [event.target.name]: event.target.value
-        });
-    };
-
-    //Evento para los checkbox de ordenamiento
-    const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSorted({
-            ...sorted,
-            [event.target.name]: event.target.checked
-        });
-    };
-
-    //Debounce para evitar llamar continuamente a la api
-    useDebounce(() => {
-        if (!validateFilter(filter.textFilter)) {
-            setIsSearching(false);
-            setError((filter.textFilter.trim().length>0)? 'Texto ingresado invalido':undefined);
-            setMovieList([]);
-            return;
-        }
-
-        try {
-            MovieService
-                .new(context.apiKey)
-                .searchMovies(filter.textFilter.trim(), (filter.yearFilter !== '0') ? filter.yearFilter : undefined)
-                .then(result => setMovieList(result ?? []))
-                .catch(() => {
-                    setMovieList([]);
-                    setError('Ha ocurrido un problema al obtener la lista de peliculas')
-                })
-                .finally(() => setIsSearching(false));
-        } catch (error) {
-            setMovieList([]);
-            console.error(error);
-            setError('Ha ocurrido un problema al obtener la lista de peliculas');
-        }
-    }, 1000, [filter]);
-
-    useEffect(() => {
-        if(validateFilter(filter.textFilter)){
-            setIsSearching(true);
-            setError(undefined);
-        }else{
-            setError((filter.textFilter.trim().length>0)? 'Texto ingresado invalido':undefined);
-        }
-    }, [filter, setIsSearching]);
+    const [filter, handleChange] = useFilter();
+    const [sorted, handleSortChange] = useSorted();
+    const [page, setPage, error] = useSearchMovies(filter, settingsContext?.data?.apiKey ?? '', validateFilter, setIsSearching);
 
     //Si la lista de peliculas cambia actualiza el state externo
-    useEffect(() => {
-        const sortedMovies: IMovie[] = sorted.nameSorted ? [...movieList].sort((a, b) => a.title.localeCompare(b.title)) : movieList;
-        const sortMovies: IMovie[] = sorted.yearSorted ? sortedMovies.sort((a, b) => a.year.localeCompare(b.year)) : sortedMovies;
-
-        setMovies(sortMovies);
-    }, [setMovies, movieList, sorted]);
-
+    useSortMovies(page, sorted, pagesContext.setPage, [page, sorted]);
+    
+    useEffect(()=>{
+        if(!pagesContext.page)return;
+        setPage({...pagesContext.page});
+    },[pagesContext.page?.currentPage]);
+    
     return (
         <div className='fl-container'>
             <fieldset>

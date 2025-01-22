@@ -6,7 +6,8 @@ import { useEffect, useRef } from 'react';
  * @param handler Función a ejecutar después del tiempo de espera.
  * @param timeout Tiempo de espera en milisegundos.
  * @param deps Dependencias para reiniciar el temporizador.
- */export function useDebounce(handler:TimerHandler, timeout:number, deps: React.DependencyList=[]){
+ */
+export function useDebounce(handler:TimerHandler, timeout:number, deps: React.DependencyList=[]){
     const timeoutId = useRef<number>(0);
     useEffect(()=>{
         clearTimeout(timeoutId.current);

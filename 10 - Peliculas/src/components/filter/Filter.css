@@ -2,13 +2,15 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    padding: 0;
 }
+
 .fl-container fieldset{
     gap:1rem;
     flex-direction: row;
     padding: 8px;
     border: none;
+    box-sizing: border-box;
 }
 
 .fl-container input{
@@ -18,9 +20,8 @@
 .fl-container label{
     white-space: nowrap;
     display: flex;
-    
+    box-sizing: border-box;
 }
-
 
 .fl-error{
     justify-content: center;

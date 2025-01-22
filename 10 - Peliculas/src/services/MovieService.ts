@@ -9,7 +9,8 @@ export interface IMovie{
 export interface IPageMovie{
     movies:IMovie[],
     currentPage:number,
-    lastPage:number
+    lastPage:number,
+    url?:string
 }
 
 interface IOmdbResult{
@@ -34,11 +35,12 @@ export default class MovieService{
         return new MovieService(apikey, localResponse);
     }
 
-    public async searchMovies(title:string, year?:string):Promise<IMovie[] | undefined>{
+    public async searchMovies(title:string, year?:string, page:number=1):Promise<IPageMovie | undefined>{
         let search;
+        const url = this.getBaseUrl();
+
         if(!this.localResponse){
-            const url = this.getBaseUrl();
-            const response = await fetch(`${url}&s=${title}&type=movie${year?'&y='+year:''}`);
+            const response = await fetch(`${url}&s=${title}&page=${page}&type=movie${year?'&y='+year:''}`);
             if(!response.ok)return;
 
             search = await response.json();
@@ -48,14 +50,41 @@ export default class MovieService{
         
         if(!search.Response)return;
         
+        return  {
+            currentPage: 1,
+            lastPage: Math.ceil(Number.parseFloat(search.totalResults)),
+            movies:(search.Search ?? []).map((movie:IOmdbResult) =>({
+                title:movie.Title, 
+                imageUrl:movie.Poster, 
+                year:movie.Year, 
+                id:movie.imdbID, 
+            })),
+            url: `${url}&s=${title}&type=movie${year?'&y='+year:''}`
+        };
+    }
 
+    public async loadNextPage(pageMovie: IPageMovie){
+        const page = pageMovie.currentPage + 1;
 
-        return (search.Search ?? []).map((movie:IOmdbResult) =>({
-            title:movie.Title, 
-            imageUrl:movie.Poster, 
-            year:movie.Year, 
-            id:movie.imdbID, 
-        } as IMovie));
+        if(page>pageMovie.lastPage)return {...pageMovie};
+
+        const response = await fetch(`${pageMovie.url}&page=${page}`);
+        if(!response.ok)return {...pageMovie};
+
+        const search = await response.json();
+
+        if(!search.Response)return {...pageMovie};
+
+        return  {
+            ...pageMovie,
+            currentPage:page,
+            movies:[...pageMovie.movies].concat((search.Search ?? []).map((movie:IOmdbResult) =>({
+                title:movie.Title, 
+                imageUrl:movie.Poster, 
+                year:movie.Year, 
+                id:movie.imdbID, 
+            })))
+        };
     }
 
     public async isValidApiKey():Promise<boolean>{

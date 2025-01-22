@@ -1,10 +1,10 @@
-import { useRef } from 'react';
-import { IContext } from '../context/Context';
+import { useEffect, useRef } from 'react';
+import { IContextData } from '../settingsContext/SettingsContext';
 import './Settings.css';
 import MovieService from '../../services/MovieService';
 
 interface ISettingsProp{
-    setData: (ctx:IContext)=>void
+    setData: (ctx:IContextData)=>void
 }
 //87a0a105
 export function Settings({setData}:ISettingsProp) {
@@ -23,17 +23,23 @@ export function Settings({setData}:ISettingsProp) {
                 setData({
                     apiKey:apiKey
                 });
+                localStorage.setItem('ApiKey', apiKey);
             })
             .catch(()=>{
                 alert('Ha habido un problema al validar el apikey');
             });
     };
 
+    useEffect(()=>{
+        if(!apikeyInput.current)return;
+        apikeyInput.current.value = localStorage.getItem('ApiKey')??'';
+    },[]);
+
     return (
         <main className='sgs-container'>
             <h1>Configuracion</h1>
             <label>
-                Omdbapi Apikey  <small>87a0a105</small>
+                Omdbapi Apikey
                 <input ref={apikeyInput} className='sgs-input' type='text' placeholder='Apikey'/>
             </label>
             <button onClick={handleClick}>Aceptar</button>

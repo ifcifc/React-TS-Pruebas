@@ -1,0 +1,19 @@
+:root{
+    --movie-gap: 16px;
+    --movie-column: 5;
+}
+
+.ml-container{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+}
+
+.ml-list{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--mv-widht), 1fr));
+    max-width: var(--container-max-width);
+    gap: var(--movie-gap);
+    text-align: center;
+}

@@ -1,5 +1,7 @@
 .sgs-input{
     width: 100%;   
+    margin: 16px 0;
+    box-sizing: border-box;
 }
 .sgs-container{
     max-width: 640px;
@@ -8,5 +10,8 @@
     flex-direction: column;
     justify-content: center;
     height: 100%;
+    text-align: center;
+
 }
+
 
