@@ -63,7 +63,7 @@ export default class MovieService{
         };
     }
 
-    public async loadNextPage(pageMovie: IPageMovie){
+    public async loadNextPage(pageMovie: IPageMovie):Promise<IPageMovie>{
         const page = pageMovie.currentPage + 1;
 
         if(page>pageMovie.lastPage)return {...pageMovie};
@@ -87,6 +87,17 @@ export default class MovieService{
         };
     }
 
+    public async getMovie(movieId:string) : Promise<IMovieDetails | undefined>{
+        const url = this.getBaseUrl();
+        const response = await fetch(`${url}&i=${movieId}&plot=full`);
+        if(!response.ok)return;
+
+        const movieResponse = await response.json();
+        if(movieResponse.Error)return;
+
+        return movieResponse as IMovieDetails;
+    }
+
     public async isValidApiKey():Promise<boolean>{
         const url = this.getBaseUrl();
         const response = await fetch(url);
@@ -102,3 +113,37 @@ export default class MovieService{
         return `${this.endpoint}${this.ApiKey}`;
     }
 }
+
+export interface IMovieDetails {
+    Title: string;
+    Year: string;
+    Rated: string;
+    Released: string;
+    Runtime: string;
+    Genre: string;
+    Director: string;
+    Writer: string;
+    Actors: string;
+    Plot: string;
+    Language: string;
+    Country: string;
+    Awards: string;
+    Poster: string;
+    Ratings: IRating[];
+    Metascore: string;
+    imdbRating: string;
+    imdbVotes: string;
+    imdbID: string;
+    Type: string;
+    DVD: string;
+    BoxOffice: string;
+    Production: string;
+    Website: string;
+    Response: string;
+  }
+  
+interface IRating {
+    Source: string;
+    Value: string;
+}
+  
