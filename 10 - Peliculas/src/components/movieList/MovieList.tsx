@@ -7,7 +7,7 @@ import { SettingsContext } from '../settingsContext/SettingsContext';
 import { useIntersection } from '../../hooks/useIntersection';
 import ModalMovie from '../modalMovie/ModalMovie';
 
-import MovieService, { IMovieDetails } from '../../services/MovieService';
+import MovieService, { IMovieDetailsRaw } from '../../services/MovieService';
 
 export default function MovieList() {
     const settingsContext = useContext(SettingsContext);
@@ -16,7 +16,7 @@ export default function MovieList() {
     const isFinishElement = useRef<HTMLDivElement>(null);
     const [isFinish, setIsFinish] = useState(false);
     const [isLoad, setIsLoad] = useState(false);
-    const [selectedMovie, setSelectedMovie] = useState<IMovieDetails|undefined>();
+    const [selectedMovie, setSelectedMovie] = useState<IMovieDetailsRaw|undefined>();
 
 
     useIntersection(setIsFinish, isFinishElement, 0.1, [isFinishElement, movies.length]);
