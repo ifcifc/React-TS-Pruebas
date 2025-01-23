@@ -1,3 +1,3 @@
-# ReactPruebas
+# React pruebas
 
-Repositorio con varios proyectos de prueba de react
+Repositorio con varios proyectos de prueba de react con Typescript
